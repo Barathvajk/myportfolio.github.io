@@ -1,187 +1,1482 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Barathvaj K | Backend Engineer</title>
-  <meta name="description" content="Backend Engineer specializing in scalable REST APIs, authentication systems, and relational database architecture.">
-  <link rel="stylesheet" href="style.css">
-</head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Barathvaj K — Backend Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --bg: #0a0a0f;
+      --bg2: #111118;
+      --bg3: #16161f;
+      --surface: #1c1c28;
+      --surface2: #23232f;
+      --border: #2a2a3a;
+      --border2: #343448;
+      --accent: #6ee7b7;
+      --accent2: #34d399;
+      --accent3: #a78bfa;
+      --text: #f0f0f8;
+      --text2: #a0a0b8;
+      --text3: #606078;
+      --glow: rgba(110, 231, 183, 0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* NOISE TEXTURE OVERLAY */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.4;
+    }
+
+    /* SCROLLBAR */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+    /* ─── NAV ─────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to bottom, rgba(10,10,15,0.95) 0%, transparent 100%);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(42,42,58,0.4);
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text3);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-cta {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--accent);
+      padding: 9px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    /* ─── HERO ─────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 48px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Gradient orbs */
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(110,231,183,0.08) 0%, transparent 70%);
+      top: -100px; right: -100px;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(167,139,250,0.07) 0%, transparent 70%);
+      bottom: 0; left: 200px;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 80px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(110,231,183,0.08);
+      border: 1px solid rgba(110,231,183,0.2);
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .hero-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    .hero-name .line2 {
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--border2);
+    }
+
+    .hero-role {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      margin-bottom: 24px;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--text2);
+      line-height: 1.75;
+      max-width: 500px;
+      margin-bottom: 40px;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--accent);
+      padding: 14px 28px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.25s;
+      box-shadow: 0 0 30px rgba(110,231,183,0.2);
+    }
+    .btn-primary:hover {
+      background: #a7f3d0;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(110,231,183,0.3);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text2);
+      background: transparent;
+      border: 1px solid var(--border2);
+      padding: 14px 28px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+    .btn-secondary:hover {
+      color: var(--text);
+      border-color: var(--accent);
+      background: rgba(110,231,183,0.05);
+      transform: translateY(-2px);
+    }
+
+    /* Hero card */
+    .hero-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      position: relative;
+      animation: fadeUp 0.6s 0.5s ease both;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(110,231,183,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-avatar {
+      width: 72px; height: 72px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent3));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--bg);
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .hero-avatar img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-card-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+    .hero-card-role {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .stat-box {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+    }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.6rem;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text3);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .tech-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .tech-pill {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text2);
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      padding: 5px 10px;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+    .tech-pill:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: rgba(110,231,183,0.06);
+    }
+    .tech-pill.highlight {
+      color: var(--accent);
+      border-color: rgba(110,231,183,0.3);
+      background: rgba(110,231,183,0.06);
+    }
+
+    /* ─── SECTION BASE ─────────────────────────── */
+    section {
+      padding: 100px 48px;
+    }
+
+    .section-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      max-width: 40px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.4;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      font-size: 1rem;
+      color: var(--text2);
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    /* ─── ABOUT / SUMMARY ─────────────────────── */
+    #summary { background: var(--bg2); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+      margin-top: 60px;
+    }
+
+    .about-text {
+      font-size: 1.05rem;
+      color: var(--text2);
+      line-height: 1.8;
+    }
+    .about-text p + p { margin-top: 16px; }
+
+    .about-highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .highlight-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.25s;
+    }
+    .highlight-item:hover {
+      border-color: rgba(110,231,183,0.3);
+      background: var(--surface2);
+      transform: translateX(4px);
+    }
+
+    .highlight-icon {
+      width: 40px; height: 40px;
+      border-radius: 8px;
+      background: rgba(110,231,183,0.1);
+      border: 1px solid rgba(110,231,183,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .highlight-text h4 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+    .highlight-text p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+
+    /* ─── TECH STACK ──────────────────────────── */
+    #tech-stack { background: var(--bg); }
+
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 60px;
+    }
+
+    .stack-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 20px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+    }
+    .stack-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 60%, rgba(110,231,183,0.03) 100%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .stack-card:hover {
+      border-color: rgba(110,231,183,0.35);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(110,231,183,0.1);
+    }
+    .stack-card:hover::before { opacity: 1; }
+
+    .stack-icon {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .stack-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+    .stack-type {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text3);
+    }
+
+    /* ─── PROJECTS ────────────────────────────── */
+    #projects { background: var(--bg2); }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 60px;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent3));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .project-card:hover {
+      border-color: var(--border2);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .project-card:hover::after { transform: scaleX(1); }
+
+    .project-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: var(--text3);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .project-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+      color: var(--text2);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .project-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .project-features li {
+      font-size: 0.85rem;
+      color: var(--text2);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.5;
+    }
+    .project-features li::before {
+      content: '→';
+      color: var(--accent);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .project-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.63rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(110,231,183,0.07);
+      border: 1px solid rgba(110,231,183,0.18);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* ─── ARCHITECTURE ────────────────────────── */
+    #architecture { background: var(--bg); }
+
+    .arch-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+      margin-top: 60px;
+    }
+
+    .arch-diagram {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      font-family: 'DM Mono', monospace;
+    }
+
+    .arch-diagram-title {
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text3);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .arch-layer {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .arch-layer-box {
+      flex: 1;
+      border: 1px solid var(--border2);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.78rem;
+      letter-spacing: 0.03em;
+      transition: all 0.2s;
+      cursor: default;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .arch-layer-box:hover {
+      border-color: var(--accent);
+      background: rgba(110,231,183,0.05);
+      color: var(--accent);
+    }
+    .arch-layer-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.6;
+      flex-shrink: 0;
+    }
+    .arch-arrow {
+      text-align: center;
+      color: var(--text3);
+      font-size: 0.8rem;
+      margin: 4px 0;
+      margin-left: 20px;
+    }
+
+    .arch-principles {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .principle-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .principle-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      background: rgba(110,231,183,0.08);
+      border: 1px solid rgba(110,231,183,0.2);
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-weight: 500;
+    }
+    .principle-content h4 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 2px;
+    }
+    .principle-content p {
+      font-size: 0.82rem;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+
+    /* ─── SECURITY ─────────────────────────────── */
+    #security { background: var(--bg2); }
+
+    .security-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 60px;
+    }
+
+    .security-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      transition: all 0.25s;
+    }
+    .security-card:hover {
+      border-color: rgba(110,231,183,0.3);
+      transform: translateY(-3px);
+    }
+
+    .security-card-icon {
+      font-size: 1.4rem;
+      margin-bottom: 14px;
+    }
+    .security-card-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+    .security-card-desc {
+      font-size: 0.82rem;
+      color: var(--text2);
+      line-height: 1.55;
+    }
+
+    /* ─── DEVOPS ──────────────────────────────── */
+    #devops { background: var(--bg); }
+
+    .devops-row {
+      display: flex;
+      gap: 16px;
+      margin-top: 60px;
+      flex-wrap: wrap;
+    }
+
+    .devops-item {
+      flex: 1;
+      min-width: 180px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      transition: all 0.25s;
+      position: relative;
+    }
+    .devops-item:hover {
+      border-color: rgba(110,231,183,0.3);
+      background: var(--surface2);
+    }
+
+    .devops-item-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text3);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .devops-item-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+    }
+    .devops-item-desc {
+      font-size: 0.8rem;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+
+    /* ─── CONTACT ──────────────────────────────── */
+    #contact {
+      background: var(--bg2);
+      text-align: center;
+    }
+
+    .contact-wrap {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .contact-cta {
+      font-size: 1rem;
+      color: var(--text2);
+      line-height: 1.7;
+      margin: 24px 0 48px;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 60px;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text2);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 14px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+    .contact-link:hover {
+      color: var(--accent);
+      border-color: rgba(110,231,183,0.4);
+      background: rgba(110,231,183,0.06);
+      transform: translateY(-2px);
+    }
+    .contact-link svg {
+      width: 16px; height: 16px;
+      opacity: 0.7;
+    }
+    .contact-link:hover svg { opacity: 1; }
+
+    .contact-divider {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 32px;
+    }
+
+    .contact-email {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .contact-email:hover { color: var(--accent); }
+
+    /* ─── FOOTER ──────────────────────────────── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 28px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: -0.02em;
+    }
+    .footer-logo span { color: var(--accent); }
+
+    .footer-copy {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text3);
+      letter-spacing: 0.06em;
+    }
+
+    /* ─── ANIMATIONS ──────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── DIVIDER ─────────────────────────────── */
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+
+    /* ─── RESPONSIVE ──────────────────────────── */
+    @media (max-width: 960px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 24px 60px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-card { display: none; }
+      section { padding: 70px 24px; }
+      .about-grid, .arch-layout, .projects-grid { grid-template-columns: 1fr; gap: 32px; }
+      .security-grid { grid-template-columns: 1fr 1fr; }
+      footer { padding: 20px 24px; flex-direction: column; gap: 12px; text-align: center; }
+    }
+
+    @media (max-width: 600px) {
+      .security-grid { grid-template-columns: 1fr; }
+      .stack-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
 <body>
 
-  <!-- NAVIGATION -->
-  <nav class="navbar">
-    <div class="logo">
-  <img src="My_Portrait.jpg" alt="Barathvaj K" class="nav-avatar">
-  <span>Barathvaj K</span>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Barathvaj<span>.</span>K</div>
+  <ul class="nav-links">
+    <li><a href="#summary">About</a></li>
+    <li><a href="#tech-stack">Stack</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#security">Security</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:barathvajk.in@gmail.com" class="nav-cta">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-badge">Available for opportunities</div>
+      <h1 class="hero-name">
+        Barathvaj<br>
+        <span class="line2">K.</span>
+      </h1>
+      <div class="hero-role">// Backend Engineer</div>
+      <p class="hero-desc">
+        Designing scalable REST APIs, secure authentication systems,
+        and optimized relational database architectures. Focused on writing
+        production-ready, maintainable backend systems.
+      </p>
+      <div class="hero-actions">
+        <a href="https://barathvajk.github.io/Barathvaj_K_Resume.pdf" class="btn-primary" target="_blank">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download Resume
+        </a>
+        <a href="#contact" class="btn-secondary">
+          Get in Touch →
+        </a>
+      </div>
     </div>
-    <ul class="nav-links">
-      <li><a href="#summary">Summary</a></li>
-      <li><a href="#tech-stack">Tech Stack</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#architecture">Architecture</a></li>
-      <li><a href="#security">Security</a></li>
-      <li><a href="#devops">DevOps</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
 
-  <!-- HERO -->
- <header id="hero">
-  <div class="hero-content">
-
-    <img src="My_Portrait.jpg" alt="Barathvaj K" class="profile-img">
-
-    <h1>Barathvaj K</h1>
-    <h2>Backend Engineer</h2>
-
-    <p>
-      Designing scalable REST APIs, secure authentication systems,
-      and optimized relational database architectures.
-    </p>
-
+    <div class="hero-card">
+      <div class="hero-avatar">
+        <img src="https://barathvajk.github.io/My_Portrait.jpg" alt="Barathvaj K" onerror="this.parentElement.innerHTML='BK'"/>
+      </div>
+      <div class="hero-card-name">Barathvaj K</div>
+      <div class="hero-card-role">Backend Engineer</div>
+      <div class="hero-stats">
+        <div class="stat-box">
+          <div class="stat-num">15+</div>
+          <div class="stat-label">API Endpoints</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">2</div>
+          <div class="stat-label">Projects Built</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">5T</div>
+          <div class="stat-label">DB Schema</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">MVC</div>
+          <div class="stat-label">Architecture</div>
+        </div>
+      </div>
+      <div class="tech-pills">
+        <span class="tech-pill highlight">Node.js</span>
+        <span class="tech-pill highlight">Express</span>
+        <span class="tech-pill highlight">MySQL</span>
+        <span class="tech-pill">MongoDB</span>
+        <span class="tech-pill">JWT</span>
+        <span class="tech-pill">bcrypt</span>
+        <span class="tech-pill">Git</span>
+        <span class="tech-pill">Postman</span>
+      </div>
+    </div>
   </div>
-</header>
+</section>
 
+<div class="section-divider"></div>
 
-  <!-- SUMMARY -->
-  <section id="summary">
-    <h2>Professional Summary</h2>
-    <p>
-      Backend Engineer with hands-on experience building and deploying
-      RESTful APIs using Node.js and Express. Skilled in JWT authentication,
-      relational schema design with MySQL, middleware-driven validation,
-      and modular MVC architecture. Focused on writing secure, maintainable,
-      and production-ready backend systems.
-    </p>
-  </section>
-
-  <!-- TECH STACK -->
-  <section id="tech-stack">
-    <h2>Core Tech Stack</h2>
-    <p>
-      Node.js • Express.js • MySQL • MongoDB • JWT • bcrypt • Git • Postman • MVC Architecture
-    </p>
-  </section>
-
-  <!-- PROJECTS -->
-  <section id="projects">
-    <h2>Projects</h2>
-
-    <div class="project">
-      <h3>Expense Management API</h3>
-      <p>
-        Built and structured a RESTful API with 15+ endpoints supporting
-        expense tracking, user authentication, and relational data handling.
-        Implemented JWT-based authentication, middleware validation,
-        and a 5-table MySQL relational schema with optimized queries.
-      </p>
-      <p>
-        Features include pagination, secure password hashing using bcrypt,
-        and centralized error handling.
-      </p>
-    </div>
-
-    <div class="project">
-      <h3>Fitness Calorie Tracking System</h3>
-      <p>
-        Designed backend services using MVC architecture to manage user
-        calorie logs and activity records. Implemented structured database
-        relationships and efficient CRUD operations with validation middleware.
-      </p>
-    </div>
-  </section>
-
-  <!-- ARCHITECTURE -->
-  <section id="architecture">
-    <h2>Backend Architecture Approach</h2>
-    <ul>
-      <li>Separation of concerns using MVC pattern</li>
-      <li>Controller → Service → Database layering</li>
-      <li>Middleware-based request validation</li>
-      <li>Centralized error handling strategy</li>
-      <li>Pagination & filtering implementation</li>
-      <li>Environment-based configuration management</li>
-    </ul>
-  </section>
-
-  <!-- SECURITY -->
-  <section id="security">
-    <h2>Security Practices</h2>
-    <ul>
-      <li>Password hashing using bcrypt</li>
-      <li>JWT authentication with expiration strategy</li>
-      <li>Protected routes using middleware</li>
-      <li>Input sanitization and validation</li>
-      <li>CORS configuration handling</li>
-      <li>Environment variables for sensitive data</li>
-    </ul>
-  </section>
-
-  <!-- DEVOPS -->
-  <section id="devops">
-    <h2>Deployment & DevOps</h2>
-    <ul>
-      <li>Version control using Git & GitHub</li>
-      <li>API testing using Postman collections</li>
-      <li>Environment separation for development & production</li>
-      <li>Basic understanding of CI/CD workflows</li>
-      <li>Process management using PM2</li>
-    </ul>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="contact">
-    <h2>Contact</h2>
-
-    <div class="contact-container">
-
-      <div class="contact-item">
-        <h3>Email</h3>
+<!-- SUMMARY -->
+<section id="summary">
+  <div class="section-wrap">
+    <div class="section-label">01 — About</div>
+    <h2 class="section-title">Professional Summary</h2>
+    <div class="about-grid">
+      <div class="about-text reveal">
         <p>
-          <a href="mailto:barathvajk.in@gmail.com">
-            barathvajk.in@gmail.com
-          </a>
+          Backend Engineer with hands-on experience building and deploying
+          RESTful APIs using Node.js and Express. Skilled in JWT authentication,
+          relational schema design with MySQL, middleware-driven validation,
+          and modular MVC architecture.
+        </p>
+        <p>
+          Focused on writing secure, maintainable, and production-ready backend
+          systems that scale. Passionate about clean code structure, performance
+          optimization, and building APIs that developers love to work with.
+        </p>
+        <p>
+          Experienced in the full backend development lifecycle — from schema
+          design and API architecture to deployment, testing, and process
+          management with PM2.
         </p>
       </div>
+      <div class="about-highlights reveal">
+        <div class="highlight-item">
+          <div class="highlight-icon">⚙️</div>
+          <div class="highlight-text">
+            <h4>API Architecture</h4>
+            <p>Building RESTful APIs with structured routing, middleware pipelines, and clean separation of concerns.</p>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon">🔐</div>
+          <div class="highlight-text">
+            <h4>Secure by Design</h4>
+            <p>JWT auth, bcrypt hashing, input sanitization, CORS, and environment-based secrets management.</p>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon">🗄️</div>
+          <div class="highlight-text">
+            <h4>Database Design</h4>
+            <p>Relational schema design with MySQL, optimized queries, joins, and pagination strategies.</p>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon">🚀</div>
+          <div class="highlight-text">
+            <h4>Deployment Ready</h4>
+            <p>Version control with Git, API testing via Postman, PM2 process management, and CI/CD awareness.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <div class="contact-item">
-        <h3>GitHub</h3>
-        <p>
-          <a href="https://github.com/Barathvajk" target="_blank">
-            github.com/Barathvajk
-          </a>
+<div class="section-divider"></div>
+
+<!-- TECH STACK -->
+<section id="tech-stack">
+  <div class="section-wrap">
+    <div class="section-label">02 — Stack</div>
+    <h2 class="section-title">Core Tech Stack</h2>
+    <p class="section-sub">Technologies I use to build fast, secure, and maintainable backend systems.</p>
+    <div class="stack-grid reveal">
+      <div class="stack-card">
+        <span class="stack-icon">🟢</span>
+        <div class="stack-name">Node.js</div>
+        <div class="stack-type">Runtime</div>
+      </div>
+      <div class="stack-card">
+        <span class="stack-icon">🚂</span>
+        <div class="stack-name">Express.js</div>
+        <div class="stack-type">Framework</div>
+      </div>
+      <div class="stack-card">
+        <span class="stack-icon">🐬</span>
+        <div class="stack-name">MySQL</div>
+        <div class="stack-type">Relational DB</div>
+      </div>
+      <div class="stack-card">
+        <span class="stack-icon">🍃</span>
+        <div class="stack-name">MongoDB</div>
+        <div class="stack-type">NoSQL DB</div>
+      </div>
+      <div class="stack-card">
+        <span class="stack-icon">🔑</span>
+        <div class="stack-name">JWT</div>
+        <div class="stack-type">Authentication</div>
+      </div>
+      <div class="stack-card">
+        <span class="stack-icon">🔒</span>
+        <div class="stack-name">bcrypt</div>
+        <div class="stack-type">Security</div>
+      </div>
+      <div class="stack-card">
+        <span class="stack-icon">📮</span>
+        <div class="stack-name">Postman</div>
+        <div class="stack-type">API Testing</div>
+      </div>
+      <div class="stack-card">
+        <span class="stack-icon">🐙</span>
+        <div class="stack-name">Git & GitHub</div>
+        <div class="stack-type">Version Control</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-wrap">
+    <div class="section-label">03 — Work</div>
+    <h2 class="section-title">Projects</h2>
+    <p class="section-sub">Backend systems designed for real-world requirements with a focus on security and scalability.</p>
+    <div class="projects-grid">
+
+      <div class="project-card reveal">
+        <div class="project-number">Project 01</div>
+        <h3 class="project-title">Expense Management API</h3>
+        <p class="project-desc">
+          A full-featured RESTful API for expense tracking, user authentication,
+          and relational data management. Built with a 5-table MySQL schema
+          and 15+ well-structured endpoints.
         </p>
+        <ul class="project-features">
+          <li>JWT-based authentication with secure expiration strategy</li>
+          <li>5-table relational MySQL schema with optimized joins</li>
+          <li>Middleware-driven request validation and error handling</li>
+          <li>Pagination and filtering for scalable data retrieval</li>
+          <li>Password hashing with bcrypt and route protection</li>
+        </ul>
+        <div class="project-tags">
+          <span class="project-tag">Node.js</span>
+          <span class="project-tag">Express</span>
+          <span class="project-tag">MySQL</span>
+          <span class="project-tag">JWT</span>
+          <span class="project-tag">bcrypt</span>
+          <span class="project-tag">REST API</span>
+        </div>
       </div>
 
-      <div class="contact-item">
-        <h3>LinkedIn</h3>
-        <p>
-          <a href="https://www.linkedin.com/in/barathvaj-k" target="_blank">
-            linkedin.com/in/barathvaj-k
-          </a>
+      <div class="project-card reveal">
+        <div class="project-number">Project 02</div>
+        <h3 class="project-title">Fitness Calorie Tracking System</h3>
+        <p class="project-desc">
+          Backend services for managing user calorie logs and activity records.
+          Designed with clean MVC architecture, structured database relationships,
+          and efficient CRUD operations.
         </p>
+        <ul class="project-features">
+          <li>MVC pattern for clean separation of business logic</li>
+          <li>Controller → Service → Database layered architecture</li>
+          <li>Structured relational database with normalized schema</li>
+          <li>Validation middleware for all incoming request data</li>
+          <li>Efficient CRUD operations with error handling strategy</li>
+        </ul>
+        <div class="project-tags">
+          <span class="project-tag">Node.js</span>
+          <span class="project-tag">Express</span>
+          <span class="project-tag">MySQL</span>
+          <span class="project-tag">MVC</span>
+          <span class="project-tag">Middleware</span>
+          <span class="project-tag">CRUD</span>
+        </div>
       </div>
 
     </div>
+  </div>
+</section>
 
-    <div class="cta-buttons">
-      <a href="Barathvaj_K_Resume.pdf" download class="btn-primary">
-        Download Resume
-      </a>
-      <a href="mailto:barathvajk.in@gmail.com" class="btn-secondary">
-        Hire Me
-      </a>
+<div class="section-divider"></div>
+
+<!-- ARCHITECTURE -->
+<section id="architecture">
+  <div class="section-wrap">
+    <div class="section-label">04 — Architecture</div>
+    <h2 class="section-title">Backend Architecture</h2>
+    <p class="section-sub">A structured approach to building maintainable and scalable systems.</p>
+    <div class="arch-layout">
+      <div class="arch-diagram reveal">
+        <div class="arch-diagram-title">// Request Lifecycle</div>
+        <div class="arch-layer">
+          <div class="arch-layer-box">
+            <div class="arch-layer-dot"></div>
+            Client Request
+          </div>
+        </div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-layer">
+          <div class="arch-layer-box">
+            <div class="arch-layer-dot"></div>
+            Validation Middleware
+          </div>
+        </div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-layer">
+          <div class="arch-layer-box">
+            <div class="arch-layer-dot"></div>
+            Auth Middleware (JWT)
+          </div>
+        </div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-layer">
+          <div class="arch-layer-box">
+            <div class="arch-layer-dot"></div>
+            Controller Layer
+          </div>
+        </div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-layer">
+          <div class="arch-layer-box">
+            <div class="arch-layer-dot"></div>
+            Service / Business Logic
+          </div>
+        </div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-layer">
+          <div class="arch-layer-box">
+            <div class="arch-layer-dot"></div>
+            Database Layer (MySQL)
+          </div>
+        </div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-layer">
+          <div class="arch-layer-box">
+            <div class="arch-layer-dot"></div>
+            Structured JSON Response
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-principles reveal">
+        <div class="principle-item">
+          <div class="principle-num">01</div>
+          <div class="principle-content">
+            <h4>Separation of Concerns</h4>
+            <p>MVC pattern keeps routing, business logic, and data access cleanly separated for maximum maintainability.</p>
+          </div>
+        </div>
+        <div class="principle-item">
+          <div class="principle-num">02</div>
+          <div class="principle-content">
+            <h4>Middleware-Driven Validation</h4>
+            <p>All incoming requests are validated and sanitized before reaching controller logic.</p>
+          </div>
+        </div>
+        <div class="principle-item">
+          <div class="principle-num">03</div>
+          <div class="principle-content">
+            <h4>Centralized Error Handling</h4>
+            <p>A single error-handling strategy across the app ensures consistent, predictable API responses.</p>
+          </div>
+        </div>
+        <div class="principle-item">
+          <div class="principle-num">04</div>
+          <div class="principle-content">
+            <h4>Pagination & Filtering</h4>
+            <p>All list endpoints support pagination to keep responses performant as datasets grow.</p>
+          </div>
+        </div>
+        <div class="principle-item">
+          <div class="principle-num">05</div>
+          <div class="principle-content">
+            <h4>Environment-Based Config</h4>
+            <p>Environment variables for all sensitive data and environment-specific configuration values.</p>
+          </div>
+        </div>
+        <div class="principle-item">
+          <div class="principle-num">06</div>
+          <div class="principle-content">
+            <h4>Modular Codebase</h4>
+            <p>Each domain feature is isolated in its own module for easy extensibility and testing.</p>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+</section>
 
-  </section>
+<div class="section-divider"></div>
 
-  <footer>
-    <p>© 2026 Barathvaj K | Backend Engineer</p>
-  </footer>
+<!-- SECURITY -->
+<section id="security">
+  <div class="section-wrap">
+    <div class="section-label">05 — Security</div>
+    <h2 class="section-title">Security Practices</h2>
+    <p class="section-sub">Security is not an afterthought — it's built into every layer of the system.</p>
+    <div class="security-grid">
+      <div class="security-card reveal">
+        <div class="security-card-icon">🔒</div>
+        <div class="security-card-title">Password Hashing</div>
+        <div class="security-card-desc">All passwords hashed using bcrypt with salting before storage. Never stored in plain text.</div>
+      </div>
+      <div class="security-card reveal">
+        <div class="security-card-icon">🪙</div>
+        <div class="security-card-title">JWT Authentication</div>
+        <div class="security-card-desc">Stateless token-based auth with expiration strategies and protected route middleware.</div>
+      </div>
+      <div class="security-card reveal">
+        <div class="security-card-icon">🛡️</div>
+        <div class="security-card-title">Input Sanitization</div>
+        <div class="security-card-desc">All user inputs validated and sanitized via middleware to prevent injection attacks.</div>
+      </div>
+      <div class="security-card reveal">
+        <div class="security-card-icon">🌐</div>
+        <div class="security-card-title">CORS Configuration</div>
+        <div class="security-card-desc">Proper Cross-Origin Resource Sharing configuration to control API access by domain.</div>
+      </div>
+      <div class="security-card reveal">
+        <div class="security-card-icon">🗝️</div>
+        <div class="security-card-title">Env Variables</div>
+        <div class="security-card-desc">Sensitive data — DB credentials, JWT secrets, API keys — stored securely in environment variables.</div>
+      </div>
+      <div class="security-card reveal">
+        <div class="security-card-icon">🚧</div>
+        <div class="security-card-title">Protected Routes</div>
+        <div class="security-card-desc">All sensitive endpoints protected by authentication middleware requiring valid JWT tokens.</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <script src="script.js"></script>
+<div class="section-divider"></div>
+
+<!-- DEVOPS -->
+<section id="devops">
+  <div class="section-wrap">
+    <div class="section-label">06 — DevOps</div>
+    <h2 class="section-title">Deployment & DevOps</h2>
+    <p class="section-sub">From local development to production deployment — a structured workflow.</p>
+    <div class="devops-row reveal">
+      <div class="devops-item">
+        <div class="devops-item-num">01</div>
+        <div class="devops-item-title">Git & GitHub</div>
+        <div class="devops-item-desc">Version control with structured commits, branching, and collaborative workflows.</div>
+      </div>
+      <div class="devops-item">
+        <div class="devops-item-num">02</div>
+        <div class="devops-item-title">Postman</div>
+        <div class="devops-item-desc">API testing via organized Postman collections covering all endpoints and edge cases.</div>
+      </div>
+      <div class="devops-item">
+        <div class="devops-item-num">03</div>
+        <div class="devops-item-title">PM2</div>
+        <div class="devops-item-desc">Process management for Node.js apps in production with auto-restart and monitoring.</div>
+      </div>
+      <div class="devops-item">
+        <div class="devops-item-num">04</div>
+        <div class="devops-item-title">Env Separation</div>
+        <div class="devops-item-desc">Separate configurations for development, staging, and production environments.</div>
+      </div>
+      <div class="devops-item">
+        <div class="devops-item-num">05</div>
+        <div class="devops-item-title">CI/CD Awareness</div>
+        <div class="devops-item-desc">Understanding of continuous integration and deployment pipelines for automated delivery.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-wrap">
+    <div class="contact-wrap">
+      <div class="section-label" style="justify-content:center">07 — Contact</div>
+      <h2 class="section-title reveal">Let's Build Something Together</h2>
+      <p class="contact-cta reveal">
+        I'm open to backend engineering roles, freelance projects, and collaborations.
+        If you're looking for someone who writes clean, secure, and scalable APIs — let's talk.
+      </p>
+      <div class="contact-links reveal">
+        <a href="mailto:barathvajk.in@gmail.com" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>
+          Email Me
+        </a>
+        <a href="https://github.com/Barathvajk" class="contact-link" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+          GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/barathvaj-k" class="contact-link" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://barathvajk.github.io/Barathvaj_K_Resume.pdf" class="contact-link" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Resume
+        </a>
+      </div>
+      <div class="contact-divider"></div>
+      <a href="mailto:barathvajk.in@gmail.com" class="contact-email reveal">barathvajk.in@gmail.com</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Barathvaj<span>.</span>K</div>
+  <div class="footer-copy">© 2026 — Backend Engineer</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // Stagger child reveals within same parent
+  document.querySelectorAll('.stack-grid, .security-grid, .devops-row, .projects-grid').forEach(grid => {
+    grid.querySelectorAll('.stack-card, .security-card, .devops-item, .project-card').forEach((child, i) => {
+      child.classList.add('reveal');
+      child.style.transitionDelay = `${i * 60}ms`;
+      observer.observe(child);
+    });
+  });
+</script>
 
 </body>
 </html>
